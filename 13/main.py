@@ -97,6 +97,7 @@ def is_p1_before_p2(p1, p2, silent):
                     continue
                 is_from_recursion_order = True
                 ordered= is_p1_before_p2(p1[i], p2[i],silent)
+                return ordered
             else:
                 newp2 = [p2[i]]
                 if not silent:
@@ -104,6 +105,8 @@ def is_p1_before_p2(p1, p2, silent):
                 is_recursion_break = False
                 is_from_recursion_order = True
                 ordered=is_p1_before_p2(p1[i], newp2,silent)
+                return ordered
+                
         elif isinstance(p2[i], list):
             newp1 = [p1[i]]
             if not silent:
@@ -111,6 +114,8 @@ def is_p1_before_p2(p1, p2, silent):
             is_from_recursion_order = True
             is_recursion_break = False
             ordered = is_p1_before_p2(newp1, p2[i],silent)
+            return ordered
+            
         else:
             is_recursion_break = True
             if p1[i] < p2[i]:
@@ -124,11 +129,9 @@ def is_p1_before_p2(p1, p2, silent):
                     print("      - Right side is smaller so it is not in the right order")
                 ordered = False
                 return False
-            # else:
-            #     return True
             finished_elements = abs(lenP1 - lenP2) >=1
 
-        #or not is_from_recursion_order or not is_recursion_break:
+    #or not is_from_recursion_order or not is_recursion_break:
     if ordered is None and not is_from_recursion_order:
         if finished_elements:
             if lenP1 < lenP2:
@@ -172,7 +175,7 @@ def sort_packets(packets):
     #             swapped = True
                 # print("ERRORrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")
 
-with open("inputtest3") as f:
+with open("input") as f:
     content = f.readlines()
     packets = [[]]
     counter = 0
@@ -212,20 +215,20 @@ with open("inputtest3") as f:
     sorted_packets.append([[6]])
     
     
-    # sort_packets(sorted_packets)
-    # print()
-    # print()
-    # sorted_packets.reverse()
-    # for p in sorted_packets:
-    #     print(p)
+    sort_packets(sorted_packets)
+    print()
+    print()
+    sorted_packets.reverse()
+    for p in sorted_packets:
+        print(p)
     
     
-    # print()
-    # print(sorted_packets.index([[2]])+1)
-    # print(sorted_packets.index([[6]])+1)
-    # print((sorted_packets.index([[2]])+1)*(sorted_packets.index([[6]])+1))
+    print()
+    print(sorted_packets.index([[2]])+1)
+    print(sorted_packets.index([[6]])+1)
+    print((sorted_packets.index([[2]])+1)*(sorted_packets.index([[6]])+1))
     
-    print(is_p1_before_p2(copy[0], copy[1], False))
+    # print(is_p1_before_p2(copy[0], copy[1], False))
     
     # print(is_p1_before_p2(copy[2], copy[15]))
 
