@@ -1,0 +1,6 @@
+A to B = 1
+A to D = 2
+B to D = 3
+D to E = 5
+B to C = 8
+C to E = 2
