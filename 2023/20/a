@@ -1,0 +1,25 @@
+[
+{high bz 0xc000099920}
+{high rt 0xc000070600}
+{high rt 0xc000099860}
+{high rt 0xc000099c20}
+{high rt 0xc000070060}
+{high rt 0xc0000703c0}
+{high sl 0xc000070540}
+{high sl 0xc000099ce0}
+{high sl 0xc000070cc0}
+{high sl 0xc000070d80}
+{high sl 0xc0000702a0}
+{high fv 0xc000070780}
+{high fv 0xc000070840}
+{high fv 0xc000099e60}
+{high fv 0xc0000998c0}
+{high fv 0xc000070a20}
+{high fv 0xc000070360}
+{low gk 0xc000070ba0}
+{low gk 0xc000099920}
+{low gk 0xc000070480}
+{low gk 0xc000099f20}
+{low gk 0xc000099800}
+{low gk 0xc000070c00}
+{low gk 0xc000099b00}]
