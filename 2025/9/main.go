@@ -157,6 +157,103 @@ func raycastIntersectionsCount(input []coord, start, end coord, direction int) i
 	return intersections
 }
 
+func sol2V2(input []coord) int {
+	solution := 0
+
+	for i := range input {
+		for j := i + 1; j < len(input); j++ {
+			A := input[i]
+			C := input[j]
+
+			if A.row > C.row {
+				A, C = C, A
+			}
+
+			if A.col > C.col {
+				A, C = coord{row: A.row, col: C.col}, coord{row: C.row, col: A.col}
+			}
+
+			B := coord{col: C.col, row: A.row}
+			D := coord{col: A.col, row: C.row}
+
+			if !doesIntersect(input, B, A, left) &&
+				!doesIntersect(input, B, C, down) &&
+				!doesIntersect(input, D, C, right) &&
+				!doesIntersect(input, D, A, up) {
+				area := calculateArea(A, C)
+				solution = max(solution, int(area))
+			}
+		}
+	}
+
+	return solution
+}
+
+// direction: 0=right, 1=down, 2=left, 3=up
+func doesIntersect(input []coord, start, end coord, direction int) bool {
+	switch direction {
+	case right:
+		for i := range input {
+			v1 := input[i]
+			v2 := input[(i+1)%len(input)]
+
+			if v2.row < v1.row {
+				v1, v2 = v2, v1
+			}
+			if v1.col == v2.col && v1.col > start.col && v1.col < end.col {
+				if start.row > v1.row && start.row <= v2.row {
+					return true
+				}
+			}
+		}
+
+	case down:
+		for i := range input {
+			v1 := input[i]
+			v2 := input[(i+1)%len(input)]
+
+			if v2.col < v1.col {
+				v1, v2 = v2, v1
+			}
+			if v1.row == v2.row && v1.row > start.row && v1.row < end.row {
+				if start.col > v1.col && start.col <= v2.col {
+					return true
+				}
+			}
+		}
+
+	case left:
+		for i := range input {
+			v1 := input[i]
+			v2 := input[(i+1)%len(input)]
+
+			if v2.row < v1.row {
+				v1, v2 = v2, v1
+			}
+			if v1.col == v2.col && v1.col < start.col && v1.col > end.col {
+				if start.row >= v1.row && start.row < v2.row {
+					return true
+				}
+			}
+		}
+	case up:
+		for i := range input {
+			v1 := input[i]
+			v2 := input[(i+1)%len(input)]
+
+			if v2.col < v1.col {
+				v1, v2 = v2, v1
+			}
+			if v1.row == v2.row && v1.row < start.row && v1.row > end.row {
+				if start.col >= v1.col && start.col < v2.col {
+					return true
+				}
+			}
+		}
+	}
+
+	return false
+}
 
 func main() {
 	input := readInput("mora.txt")
@@ -167,8 +264,11 @@ func main() {
 	fmt.Println("solution:", solution1)
 	fmt.Println("Time taken:", elapsed)
 	startSol2 := time.Now()
-	solution2 := sol2(input)
+	solution2 := sol2V2(input)
 	elapsed2 := time.Since(startSol2)
+	if solution2 != 1465767840 {
+		panic("wrong solution")
+	}
 	fmt.Println("Part 2:")
 	fmt.Println("Solution:", solution2)
 	fmt.Println("Time taken:", elapsed2)
